@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { Header } from './components/Styles';
 
-function App() {
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+
+import BreweryList from './components/BreweryList';
+import { reducer } from './reducers/index';
+
+
+const store = createStore(reducer, applyMiddleware(thunk));
+
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>  
+      <Header className="App">
+        <h1>Northwest Breweries</h1>
+        <h3>Find your next stop</h3>
+        <BreweryList />
+      </Header>
+    </Provider>
   );
 }
-
-export default App;
